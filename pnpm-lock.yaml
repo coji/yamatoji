@@ -9,6 +9,7 @@ specifiers:
   '@types/node': 17.0.39
   '@types/react': 18.0.11
   '@types/react-dom': 18.0.5
+  dayjs: ^1.11.2
   eslint: 8.17.0
   eslint-config-next: 12.1.6
   firebase: ^9.8.2
@@ -26,6 +27,7 @@ dependencies:
   '@emotion/styled': 11.8.1_go2vspwukcwrlktcqggu7jzx7y
   '@react-query-firebase/auth': 0.3.4_uviu4bnv6tcguqwliuayhkzpru
   '@react-query-firebase/firestore': 0.4.2_uviu4bnv6tcguqwliuayhkzpru
+  dayjs: 1.11.2
   firebase: 9.8.2
   framer-motion: 6.3.10_ef5jwxihqo6n7gxfmzogljlgcm
   next: 12.1.6_ef5jwxihqo6n7gxfmzogljlgcm
@@ -2114,6 +2116,10 @@ packages:
   /damerau-levenshtein/1.0.8:
     resolution: {integrity: sha512-sdQSFB7+llfUcQHUQO3+B8ERRj0Oa4w9POWMI/puGtuf7gFywGmkaLCElnudfTiKZV+NvHqL0ifzdrI8Ro7ESA==}
     dev: true
+
+  /dayjs/1.11.2:
+    resolution: {integrity: sha512-F4LXf1OeU9hrSYRPTTj/6FbO4HTjPKXvEIC1P2kcnFurViINCVk3ZV0xAS3XVx9MkMsXbbqlK6hjseaYbgKEHw==}
+    dev: false
 
   /debug/2.6.9:
     resolution: {integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==}

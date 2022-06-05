@@ -2,8 +2,10 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
 import type { NextPage } from 'next'
 import type { AppProps } from 'next/app'
-import { ChakraProvider } from '@chakra-ui/react'
+import { ChakraProvider, extendTheme } from '@chakra-ui/react'
 import { AppDefaultLayout } from '~/layouts/AppDefaultLayout'
+
+const theme = extendTheme({})
 
 type NextPageWithLayout = NextPage & {
   getLayout?: (page: React.ReactElement) => JSX.Element
@@ -22,7 +24,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ChakraProvider resetCSS>
+      <ChakraProvider resetCSS theme={theme}>
         {getLayout(<Component {...pageProps} />)}
       </ChakraProvider>
       <ReactQueryDevtools />

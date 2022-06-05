@@ -27,10 +27,10 @@ export const AppNavbar = () => {
       width="full"
       py="2"
       px={{ base: '2', md: '4' }}
-      bgColor="white"
+      bgColor="gray.50"
       boxShadow="sm"
     >
-      <Heading>Yamatoji</Heading>
+      <Heading color="gray.600">Yamatoji</Heading>
       <Spacer />
 
       {currentUser ? (
