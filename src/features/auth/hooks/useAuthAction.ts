@@ -2,7 +2,6 @@ import {
   Auth,
   AuthError,
   AuthProvider,
-  PopupRedirectResolver,
   signInWithRedirect,
   signOut
 } from 'firebase/auth'

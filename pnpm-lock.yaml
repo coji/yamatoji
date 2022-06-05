@@ -2,8 +2,8 @@ lockfileVersion: 5.4
 
 specifiers:
   '@chakra-ui/react': ^2.1.2
-  '@emotion/react': ^11.9.0
-  '@emotion/styled': ^11.8.1
+  '@emotion/react': ^11
+  '@emotion/styled': ^11
   '@react-query-firebase/auth': ^0.3.4
   '@react-query-firebase/firestore': ^0.4.2
   '@types/node': 17.0.39
@@ -12,7 +12,7 @@ specifiers:
   eslint: 8.17.0
   eslint-config-next: 12.1.6
   firebase: ^9.8.2
-  framer-motion: ^6.3.10
+  framer-motion: ^6
   next: 12.1.6
   react: 18.1.0
   react-div-100vh: ^0.7.0

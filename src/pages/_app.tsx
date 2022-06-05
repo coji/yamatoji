@@ -1,10 +1,4 @@
-import {
-  useQuery,
-  useMutation,
-  useQueryClient,
-  QueryClient,
-  QueryClientProvider
-} from 'react-query'
+import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
 import type { NextPage } from 'next'
 import type { AppProps } from 'next/app'

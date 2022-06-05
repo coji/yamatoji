@@ -1,7 +1,6 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
-import { Heading, Stack, Box } from '@chakra-ui/react'
+import { Stack, Box } from '@chakra-ui/react'
 import { useAuth } from '~/features/auth/hooks/useAuth'
 import { AuthSignInButton } from '~/features/auth/components/AuthSignInButton'
 import { AuthSignOutButton } from '~/features/auth/components/AuthSignOutButton'
@@ -11,6 +10,10 @@ const Home: NextPage = () => {
 
   return (
     <>
+      <Head>
+        <title>Yamatoji</title>
+      </Head>
+
       {isAuthChecking && 'Loading...'}
       {!isAuthChecking && (
         <Stack>
