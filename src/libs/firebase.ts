@@ -1,5 +1,5 @@
-import { getApps, getApp, initializeApp, FirebaseApp } from 'firebase/app'
-import { getAuth, connectAuthEmulator, Auth } from 'firebase/auth'
+import { getApps, getApp, initializeApp } from 'firebase/app'
+import { getAuth, connectAuthEmulator } from 'firebase/auth'
 import { getFirestore, connectFirestoreEmulator } from 'firebase/firestore'
 
 const isEmulator = () => {
@@ -18,7 +18,7 @@ export const config = {
   storageBucket: 'yamatoji-3424c.appspot.com',
   messagingSenderId: '312147418916',
   appId: '1:312147418916:web:73f1b6dc44f44d88299db1',
-  measurementId: 'G-KVFX9M5ZG6',
+  measurementId: 'G-KVFX9M5ZG6'
 }
 
 const isInitializing = getApps().length === 0

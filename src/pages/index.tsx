@@ -11,7 +11,6 @@ const Home: NextPage = () => {
 
   return (
     <>
-      <Heading>Yamatoji</Heading>
       {isAuthChecking && 'Loading...'}
       {!isAuthChecking && (
         <Stack>

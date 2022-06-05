@@ -32,3 +32,10 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+# Credit
+
+認証部分のコードは React Query Firebase を一部抜粋・改変して利用しています。
+改変した部分は、onAuthStateChanged の unsubscribe 処理を消す対応です。Nextjs + react 18 で動作しなかっためです。
+
+https://github.com/invertase/react-query-firebase
