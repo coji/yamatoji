@@ -17,7 +17,16 @@ const Home: NextPage = () => {
         <title>Yamatoji</title>
       </Head>
 
-      <Grid gap="4">
+      <Grid
+        gap="4"
+        gridTemplateColumns={{
+          base: '1fr',
+          sm: 'repeat(2,1fr)',
+          md: 'repeat(2,1fr)',
+          lg: 'repeat(2,1fr)',
+          xl: 'repeat(2,1fr)'
+        }}
+      >
         {meetups.map((meetup) => (
           <GridItem overflow="auto" key={meetup.id}>
             <NextLink href={`/meetup/${meetup.id}`} passHref>

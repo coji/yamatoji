@@ -1,4 +1,6 @@
+import NextLink from 'next/link'
 import {
+  Link,
   Flex,
   Heading,
   Spacer,
@@ -23,6 +25,7 @@ export const AppNavbar = () => {
 
   return (
     <Flex
+      as="nav"
       alignItems="center"
       width="full"
       py="2"
@@ -30,7 +33,12 @@ export const AppNavbar = () => {
       bgColor="gray.50"
       boxShadow="sm"
     >
-      <Heading color="gray.600">Yamatoji</Heading>
+      <NextLink href="/" passHref>
+        <Link _hover={{ textDecoration: 'none' }}>
+          <Heading color="gray.600">Yamatoji</Heading>
+        </Link>
+      </NextLink>
+
       <Spacer />
 
       {currentUser ? (

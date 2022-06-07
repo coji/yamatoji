@@ -1,30 +1,46 @@
-import { Box, Container, Stack, Flex, Link, Text } from '@chakra-ui/react'
+import {
+  Box,
+  Container,
+  Stack,
+  Flex,
+  Link,
+  Text,
+  Icon,
+  chakra
+} from '@chakra-ui/react'
 
 export const AppFooter = () => (
-  <Box bg="gray.50" color="gray.600" py="4" fontSize="sm">
+  <Box as="footer" bg="gray.50" color="gray.600" py="4" fontSize="sm">
     <Container as={Stack} maxW={'6xl'} py={4} textAlign="center">
       <Stack>
         <Box textAlign="center">
           <Flex direction="row" gap={4} flexWrap="wrap" justifyContent="center">
-            <Link href="https://www.techtalk.jp/#contact" isExternal>
-              お問い合わせ
+            <Link href="https://github.com/coji/yamatoji" isExternal>
+              GitHub
             </Link>
 
-            <Box>|</Box>
-
-            <Link href="https://www.techtalk.jp/privacy" isExternal>
+            <Link href="/privacy" isExternal>
               プライバシー
+            </Link>
+
+            <Link href="https://www.messenger.com/t/679524290/" isExternal>
+              お問い合わせ{' '}
+              <Icon color="facebook.500">
+                <path
+                  fill="currentColor"
+                  d="M12 0c-6.627 0-12 4.975-12 11.111 0 3.497 1.745 6.616 4.472 8.652v4.237l4.086-2.242c1.09.301 2.246.464 3.442.464 6.627 0 12-4.974 12-11.111 0-6.136-5.373-11.111-12-11.111zm1.193 14.963l-3.056-3.259-5.963 3.259 6.559-6.963 3.13 3.259 5.889-3.259-6.559 6.963z"
+                />
+              </Icon>
             </Link>
           </Flex>
         </Box>
 
-        <Text>
-          &copy; {new Date().getFullYear()}{' '}
-          <Link fontWeight="bold" href="https://www.techtalk.jp/" isExternal>
-            TechTalk.jp
-          </Link>{' '}
-          All Rights Reserved.
-        </Text>
+        <Box>
+          サイト管理人{' '}
+          <Link fontWeight="bold" href="https://github.com/coji" isExternal>
+            coji
+          </Link>
+        </Box>
       </Stack>
     </Container>
   </Box>

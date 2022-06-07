@@ -11,44 +11,5 @@
     "maxParticipants": 30,
     "payidParticipants": 0,
     "entryParticipants": 11
-  },
-  {
-    "id": "2",
-    "title": "Meetup 1",
-    "startAt": "2022-06-23 20:00",
-    "endAt": "2022-06-23 23:00",
-    "imageUrl": "https://merino-akihabara.com/wp-content/uploads/2021/10/66c19942ab4ba346fdb64ccc04cde373.jpg",
-    "locationLabel": "新宿 めり乃",
-    "locationUrl": "https://goo.gl/maps/AQYGi2eKu25H7WsPA",
-    "description": "ひさびさにやりましょう",
-    "maxParticipants": 30,
-    "payidParticipants": 0,
-    "entryParticipants": 11
-  },
-  {
-    "id": "3",
-    "title": "Meetup 1",
-    "startAt": "2022-06-23 20:00",
-    "endAt": "2022-06-23 23:00",
-    "imageUrl": "https://merino-akihabara.com/wp-content/uploads/2021/10/66c19942ab4ba346fdb64ccc04cde373.jpg",
-    "locationLabel": "新宿 めり乃",
-    "locationUrl": "https://goo.gl/maps/AQYGi2eKu25H7WsPA",
-    "description": "ひさびさにやりましょう",
-    "maxParticipants": 30,
-    "payidParticipants": 0,
-    "entryParticipants": 11
-  },
-  {
-    "id": "4",
-    "title": "Meetup 1",
-    "startAt": "2022-06-23 20:00",
-    "endAt": "2022-06-23 23:00",
-    "imageUrl": "https://merino-akihabara.com/wp-content/uploads/2021/10/66c19942ab4ba346fdb64ccc04cde373.jpg",
-    "locationLabel": "新宿 めり乃",
-    "locationUrl": "https://goo.gl/maps/AQYGi2eKu25H7WsPA",
-    "description": "ひさびさにやりましょう",
-    "maxParticipants": 30,
-    "payidParticipants": 0,
-    "entryParticipants": 11
   }
 ]

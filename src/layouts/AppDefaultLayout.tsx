@@ -12,10 +12,10 @@ export const AppDefaultLayout: React.FC<AppDefaultLayoutProps> = ({
 }) => {
   return (
     <Div100vh>
-      <Flex as="section" flexDirection="column" height="full" width="full">
+      <Flex as="section" flexDirection="column" minHeight="100vh">
         <AppNavbar />
 
-        <Box flex="1" p="2" overflow="auto" flexGrow="1">
+        <Box as="main" flex="1" p="2" overflow="auto" flexGrow="1">
           {children}
         </Box>
 
