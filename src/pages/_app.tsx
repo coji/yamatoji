@@ -1,4 +1,4 @@
-import { QueryClient, QueryClientProvider } from 'react-query'
+import { QueryClient, QueryClientProvider, Hydrate } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
 import type { NextPage } from 'next'
 import type { AppProps } from 'next/app'
@@ -24,10 +24,12 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ChakraProvider resetCSS theme={theme}>
-        {getLayout(<Component {...pageProps} />)}
-      </ChakraProvider>
-      <ReactQueryDevtools />
+      <Hydrate state={pageProps.dehydratedState}>
+        <ChakraProvider resetCSS theme={theme}>
+          {getLayout(<Component {...pageProps} />)}
+        </ChakraProvider>
+        <ReactQueryDevtools />
+      </Hydrate>
     </QueryClientProvider>
   )
 }

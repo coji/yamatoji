@@ -15,7 +15,13 @@ export const AppDefaultLayout: React.FC<AppDefaultLayoutProps> = ({
       <Flex as="section" flexDirection="column" minHeight="100vh">
         <AppNavbar />
 
-        <Box as="main" flex="1" p="2" overflow="auto" flexGrow="1">
+        <Box
+          as="main"
+          flex="1"
+          p={{ base: '0', sm: '2' }}
+          overflow="auto"
+          flexGrow="1"
+        >
           {children}
         </Box>
 

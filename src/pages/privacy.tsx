@@ -1,10 +1,10 @@
 import { NextPage, GetStaticProps } from 'next'
 import Head from 'next/head'
-import NextLink from 'next/link'
 import { promises as fs } from 'fs'
 import MarkdownIt from 'markdown-it'
 import styles from '../assets/privacy.module.css'
-import { Heading, Box, Button } from '@chakra-ui/react'
+import { Container, Heading, Box } from '@chakra-ui/react'
+import { AppReturnToTopButton } from '~/components/AppReturnToTopButton'
 
 interface Props {
   content: string
@@ -23,23 +23,18 @@ const Privacy: NextPage<Props> = ({ content }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Heading textAlign="center" my="4rem">
-        Yamatoji プライバシーポリシー
-      </Heading>
+      <Container maxW="container.lg">
+        <Heading textAlign="center" my="4rem">
+          Yamatoji プライバシーポリシー
+        </Heading>
 
-      <Box
-        maxW="80%"
-        className={styles.markdown}
-        dangerouslySetInnerHTML={{ __html: content }}
-      />
+        <Box
+          className={styles.markdown}
+          dangerouslySetInnerHTML={{ __html: content }}
+        />
 
-      <Box textAlign="center" my="4rem">
-        <NextLink href="/" passHref>
-          <Button colorScheme="blue" as="a">
-            トップに戻る
-          </Button>
-        </NextLink>
-      </Box>
+        <AppReturnToTopButton />
+      </Container>
     </>
   )
 }

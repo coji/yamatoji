@@ -1,15 +1,16 @@
-import type { NextPage } from 'next'
+import type { NextPage, GetStaticProps } from 'next'
 import NextLink from 'next/link'
 import Head from 'next/head'
-import { Grid, GridItem, Link } from '@chakra-ui/react'
-import { useAuth } from '~/features/auth/hooks/useAuth'
+import { QueryClient, dehydrate } from 'react-query'
+import { Container, Grid, GridItem, Link } from '@chakra-ui/react'
 import { MeetupCard } from '~/features/meetup/components/MeetupCard'
-import type { Meetup } from '~/features/meetup/interfaces/meetup'
-import Meetups from '~/assets/meetups.json'
+import {
+  useMeetupList,
+  fetchMeetupList
+} from '~/features/meetup/hooks/useMeetups'
 
 const Home: NextPage = () => {
-  const { currentUser, isAuthChecking } = useAuth()
-  const meetups: Meetup[] = Meetups
+  const { data } = useMeetupList()
 
   return (
     <>
@@ -17,28 +18,41 @@ const Home: NextPage = () => {
         <title>Yamatoji</title>
       </Head>
 
-      <Grid
-        gap="4"
-        gridTemplateColumns={{
-          base: '1fr',
-          sm: 'repeat(2,1fr)',
-          md: 'repeat(2,1fr)',
-          lg: 'repeat(2,1fr)',
-          xl: 'repeat(2,1fr)'
-        }}
-      >
-        {meetups.map((meetup) => (
-          <GridItem overflow="auto" key={meetup.id}>
-            <NextLink href={`/meetup/${meetup.id}`} passHref>
-              <Link _hover={{ textDecoration: 'none' }}>
-                <MeetupCard meetup={meetup} />
-              </Link>
-            </NextLink>
-          </GridItem>
-        ))}
-      </Grid>
+      <Container maxW="container.lg" p="0">
+        <Grid
+          gap="4"
+          gridTemplateColumns={{
+            base: '1fr',
+            sm: 'repeat(2,1fr)',
+            md: 'repeat(2,1fr)',
+            lg: 'repeat(2,1fr)',
+            xl: 'repeat(2,1fr)'
+          }}
+        >
+          {data &&
+            data.map((meetup) => (
+              <GridItem overflow="auto" key={meetup.id}>
+                <NextLink href={`/meetup/${meetup.id}`} passHref>
+                  <Link _hover={{ textDecoration: 'none' }}>
+                    <MeetupCard meetup={meetup} />
+                  </Link>
+                </NextLink>
+              </GridItem>
+            ))}
+        </Grid>
+      </Container>
     </>
   )
 }
-
 export default Home
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  const queryClient = new QueryClient()
+  await queryClient.prefetchQuery(['meetup'], () => fetchMeetupList())
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient)
+    }
+  }
+}
