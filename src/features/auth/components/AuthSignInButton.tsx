@@ -1,14 +1,14 @@
-import { Button, Icon } from '@chakra-ui/react'
+import { Button, Icon, ButtonProps } from '@chakra-ui/react'
 import { useAuthAction } from '~/features/auth/hooks/useAuthAction'
 
-export const AuthSignInButton: React.FC = () => {
+export const AuthSignInButton: React.FC<ButtonProps> = ({ ...props }) => {
   const { signInWithGitHub } = useAuthAction()
   return (
     <Button
-      variant="outline"
       colorScheme="blue"
       size="sm"
       onClick={() => signInWithGitHub()}
+      {...props}
     >
       <Icon mr="1">
         <path
