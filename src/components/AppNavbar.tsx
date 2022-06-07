@@ -18,10 +18,11 @@ import {
 } from '@chakra-ui/react'
 import { useAuth } from '~/features/auth/hooks/useAuth'
 import { useAuthAction } from '~/features/auth/hooks/useAuthAction'
+import { AuthSignInButton } from '~/features/auth/components/AuthSignInButton'
 
 export const AppNavbar = () => {
   const { currentUser, isAuthChecking } = useAuth()
-  const { signInWithGitHub, signOut } = useAuthAction()
+  const { signOut } = useAuthAction()
 
   return (
     <Flex
@@ -74,9 +75,7 @@ export const AppNavbar = () => {
       ) : isAuthChecking ? (
         <CircularProgress isIndeterminate size="32px" />
       ) : (
-        <Button size="sm" colorScheme="blue" onClick={() => signInWithGitHub()}>
-          Sign in
-        </Button>
+        <AuthSignInButton />
       )}
     </Flex>
   )

@@ -1,13 +1,5 @@
-import {
-  Box,
-  Container,
-  Stack,
-  Flex,
-  Link,
-  Text,
-  Icon,
-  chakra
-} from '@chakra-ui/react'
+import NextLink from 'next/link'
+import { Box, Container, Stack, Flex, Link, Icon } from '@chakra-ui/react'
 
 export const AppFooter = () => (
   <Box as="footer" bg="gray.50" color="gray.600" py="4" fontSize="sm">
@@ -19,9 +11,9 @@ export const AppFooter = () => (
               GitHub
             </Link>
 
-            <Link href="/privacy" isExternal>
-              プライバシー
-            </Link>
+            <NextLink href="/privacy" passHref>
+              <Link>プライバシー</Link>
+            </NextLink>
 
             <Link href="https://www.messenger.com/t/679524290/" isExternal>
               お問い合わせ{' '}
@@ -36,9 +28,8 @@ export const AppFooter = () => (
         </Box>
 
         <Box>
-          サイト管理人{' '}
           <Link fontWeight="bold" href="https://github.com/coji" isExternal>
-            coji
+            運営 coji
           </Link>
         </Box>
       </Stack>
