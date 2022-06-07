@@ -1,4 +1,5 @@
 interface Participant {
+  uid: string
   displayName: string
   photoUrl: string
 }

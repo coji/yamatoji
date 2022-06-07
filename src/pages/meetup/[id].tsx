@@ -12,10 +12,14 @@ import {
   Link,
   Grid,
   GridItem,
+  Text,
+  Avatar,
   chakra
 } from '@chakra-ui/react'
 import { AiOutlineClockCircle } from 'react-icons/ai'
 import { GrLocation } from 'react-icons/gr'
+import { IoPeopleCircleOutline } from 'react-icons/io5'
+import { FaRegCommentDots } from 'react-icons/fa'
 import dayjs from '~/libs/dayjs'
 import { loadStripe } from '@stripe/stripe-js'
 const stripePromise = loadStripe(
@@ -53,22 +57,29 @@ const MeetupIndex = () => {
     <Container maxW="container.lg" p="0">
       <MeetupImageBlock meetup={meetup} />
 
-      <Stack py="4">
-        <Stack direction="row" px="4" alignItems="baseline">
+      <Stack py="4" px="2">
+        <Stack
+          direction={{ base: 'column', sm: 'row' }}
+          px="2"
+          alignItems="baseline"
+        >
           <Heading flex="1">{meetup.title}</Heading>
           <Box>
-            <small>参加確定</small> {meetup.paidParticipants.length}
-            <small>人</small> / <small>最大{meetup.maxParticipants}人</small>
+            <small>参加確定 </small>
+            {meetup.paidParticipants.length}
+            <small>人</small> /{' '}
+            <small>参加希望 {meetup.entryParticipants.length}人</small> /{' '}
+            <small>最大{meetup.maxParticipants}人</small>
           </Box>
         </Stack>
 
         <Divider />
 
         <Stack direction={{ base: 'column', sm: 'row' }}>
-          <Box flex="1">
-            <Grid gridTemplateColumns="2rem 1fr">
+          <Stack flex="1">
+            <Grid gridTemplateColumns="2rem 1fr" gap="2">
               <GridItem textAlign="center">
-                <Icon as={AiOutlineClockCircle} />
+                <Icon mt="1" as={AiOutlineClockCircle} />
               </GridItem>
               <GridItem>
                 <chakra.span mr="2">
@@ -80,7 +91,7 @@ const MeetupIndex = () => {
               </GridItem>
 
               <GridItem textAlign="center">
-                <Icon as={GrLocation} />
+                <Icon mt="1" as={GrLocation} />
               </GridItem>
               <GridItem>
                 <Link
@@ -92,14 +103,75 @@ const MeetupIndex = () => {
                   {meetup.locationLabel}
                 </Link>
               </GridItem>
+
+              <GridItem textAlign="center">
+                <Icon mt="1" as={FaRegCommentDots} />
+              </GridItem>
+              <GridItem>
+                <Text>{meetup.description}</Text>
+              </GridItem>
+
+              <GridItem textAlign="center">
+                <Icon mt="1" as={IoPeopleCircleOutline} />
+              </GridItem>
+              <GridItem>
+                <Text>
+                  参加確定 {meetup.paidParticipants.length}
+                  <small>人</small>
+                </Text>
+              </GridItem>
+
+              <GridItem></GridItem>
+              <GridItem>
+                <Stack>
+                  {meetup.paidParticipants.map((participant) => (
+                    <Stack direction="row" key={participant.uid}>
+                      <Avatar
+                        mr="1"
+                        src={participant.photoUrl}
+                        size="sm"
+                      ></Avatar>
+                      <Text display="inline">{participant.displayName}</Text>
+                    </Stack>
+                  ))}
+                </Stack>
+              </GridItem>
             </Grid>
+          </Stack>
+          <Stack>
+            <PurchasePanel meetup={meetup} />
 
-            <Box px="4" fontSize="sm">
-              {meetup.description}
+            <Box>
+              <Box
+                fontSize="sm"
+                color="gray.500"
+                border="1px solid"
+                borderColor="gray.200"
+                rounded="md"
+                py="1"
+                px="4"
+                mb="2"
+              >
+                <Box fontWeight="bold" pb="2">
+                  参加希望 {meetup.entryParticipants.length}
+                  <small>人</small>
+                </Box>
+                <Stack>
+                  {meetup.entryParticipants.map((participant) => (
+                    <Stack
+                      direction="row"
+                      key={participant.uid}
+                      display="flex"
+                      alignItems="center"
+                    >
+                      <Avatar src={participant.photoUrl} size="sm"></Avatar>
+                      <Text>{participant.displayName}</Text>
+                    </Stack>
+                  ))}
+                </Stack>
+              </Box>
             </Box>
-          </Box>
-
-          <PurchasePanel meetup={meetup} />
+          </Stack>
         </Stack>
       </Stack>
 
