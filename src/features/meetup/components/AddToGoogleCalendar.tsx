@@ -12,8 +12,8 @@ export const AddToGoogleCalendar = ({ meetup }: { meetup: Meetup }) => {
 
   return (
     <Link href={link} isExternal _hover={{ textDecoration: 'none' }}>
-      <Button size="xs" colorScheme="red" variant="outline">
-        <Icon mr="2" as={BiCalendarPlus}></Icon>Add
+      <Button size="xs" colorScheme="blue" variant="outline">
+        <Icon mr="2" as={BiCalendarPlus}></Icon>Google Calendar
       </Button>
     </Link>
   )
