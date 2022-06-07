@@ -7,9 +7,15 @@
     "imageUrl": "https://merino-akihabara.com/wp-content/uploads/2021/10/66c19942ab4ba346fdb64ccc04cde373.jpg",
     "locationLabel": "新宿 めり乃",
     "locationUrl": "https://goo.gl/maps/AQYGi2eKu25H7WsPA",
-    "description": "ひさびさにやりましょう",
+    "description": "久しぶりに集って大和路でやってたような、しゃぶしゃぶ飲み会をやりましょう",
+    "ticketPrice": 5000,
     "maxParticipants": 30,
-    "payidParticipants": 0,
-    "entryParticipants": 11
+    "payidParticipants": [
+      {
+        "displayName": "coji",
+        "photoUrl": "https://avatars.githubusercontent.com/u/9904?v=4"
+      }
+    ],
+    "entryParticipants": []
   }
 ]
