@@ -64,12 +64,9 @@ const MeetupIndex = () => {
           alignItems="baseline"
         >
           <Heading flex="1">{meetup.title}</Heading>
-          <Box>
-            <small>参加確定 </small>
-            {meetup.paidParticipants.length}
-            <small>人</small> /{' '}
-            <small>参加希望 {meetup.entryParticipants.length}人</small> /{' '}
-            <small>最大{meetup.maxParticipants}人</small>
+          <Box fontSize="xs">
+            参加確定 {meetup.paidParticipants.length}人 / 参加希望{' '}
+            {meetup.entryParticipants.length}人 / 最大{meetup.maxParticipants}人
           </Box>
         </Stack>
 
