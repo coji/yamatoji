@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 import { QueryClient, dehydrate } from 'react-query'
 import {
   Container,
+  Heading,
   Box,
   Icon,
   Stack,
@@ -22,6 +23,7 @@ const stripePromise = loadStripe(
 )
 import { AppReturnToTopButton } from '~/components/AppReturnToTopButton'
 import { MeetupImageBlock } from '~/features/meetup/components/MeetupImageBlock'
+import { PurchasePanel } from '~/features/meetup/components/PurchasePanel'
 import { AddToGoogleCalendar } from '~/features/meetup/components/AddToGoogleCalendar'
 import { useMeetup, fetchMeetup } from '~/features/meetup/hooks/useMeetups'
 
@@ -52,52 +54,54 @@ const MeetupIndex = () => {
       <MeetupImageBlock meetup={meetup} />
 
       <Stack py="4">
-        <Box px="4" fontSize="2xl" fontWeight="bold">
-          {meetup.title}
-        </Box>
+        <Stack direction="row" px="4" alignItems="baseline">
+          <Heading flex="1">{meetup.title}</Heading>
+          <Box>
+            <small>参加確定</small> {meetup.paidParticipants.length}
+            <small>人</small> / <small>最大{meetup.maxParticipants}人</small>
+          </Box>
+        </Stack>
 
         <Divider />
 
-        <Grid gridTemplateColumns="2rem 1fr">
-          <GridItem textAlign="center">
-            <Icon as={AiOutlineClockCircle} />
-          </GridItem>
-          <GridItem>
-            <chakra.span mr="2">
-              {dayjs(meetup.startAt).format('YYYY年M月D日 ddd曜日 HH:mm')} 〜{' '}
-              {dayjs(meetup.endAt).format('HH:mm')}
-            </chakra.span>
+        <Stack direction={{ base: 'column', sm: 'row' }}>
+          <Box flex="1">
+            <Grid gridTemplateColumns="2rem 1fr">
+              <GridItem textAlign="center">
+                <Icon as={AiOutlineClockCircle} />
+              </GridItem>
+              <GridItem>
+                <chakra.span mr="2">
+                  {dayjs(meetup.startAt).format('YYYY年M月D日 ddd曜日 HH:mm')}{' '}
+                  〜 {dayjs(meetup.endAt).format('HH:mm')}
+                </chakra.span>
 
-            <AddToGoogleCalendar meetup={meetup} />
-          </GridItem>
+                <AddToGoogleCalendar meetup={meetup} />
+              </GridItem>
 
-          <GridItem textAlign="center">
-            <Icon as={GrLocation} />
-          </GridItem>
-          <GridItem>
-            <Link
-              href={meetup.locationUrl}
-              color="blue.500"
-              fontWeight="bold"
-              isExternal
-            >
-              {meetup.locationLabel}
-            </Link>
-          </GridItem>
-        </Grid>
+              <GridItem textAlign="center">
+                <Icon as={GrLocation} />
+              </GridItem>
+              <GridItem>
+                <Link
+                  href={meetup.locationUrl}
+                  color="blue.500"
+                  fontWeight="bold"
+                  isExternal
+                >
+                  {meetup.locationLabel}
+                </Link>
+              </GridItem>
+            </Grid>
 
-        <Box px="4" fontSize="sm">
-          {meetup.description}
-        </Box>
+            <Box px="4" fontSize="sm">
+              {meetup.description}
+            </Box>
+          </Box>
+
+          <PurchasePanel meetup={meetup} />
+        </Stack>
       </Stack>
-
-      <form action="/api/checkout_sessions" method="POST">
-        <section>
-          <button type="submit" role="link">
-            Checkout
-          </button>
-        </section>
-      </form>
 
       <AppReturnToTopButton />
     </Container>

@@ -10,7 +10,7 @@
     "description": "久しぶりに集って大和路でやってたような、しゃぶしゃぶ飲み会をやりましょう",
     "ticketPrice": 5000,
     "maxParticipants": 30,
-    "payidParticipants": [
+    "paidParticipants": [
       {
         "displayName": "coji",
         "photoUrl": "https://avatars.githubusercontent.com/u/9904?v=4"
