@@ -36,7 +36,10 @@ export default async function handler(
     const session = await stripe.checkout.sessions.create({
       line_items: [
         {
-          price: 'price_1L7tF4EobFOU2z6XVnFgmaqb', // 5000円 + 137円
+          price:
+            process.env.NODE_ENV === 'development'
+              ? meetup.priceIdDev
+              : meetup.priceId,
           quantity: 1
         }
       ],
