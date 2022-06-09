@@ -13,7 +13,7 @@ const isEmulator = () => {
 
 export const config = {
   apiKey: 'AIzaSyA9rbQUyd_kdtwIKAR_TMQgTqJalzf-LLs',
-  authDomain: 'yamatoji-3424c.firebaseapp.com',
+  authDomain: 'auth.yamatoji.dev',
   projectId: 'yamatoji-3424c',
   storageBucket: 'yamatoji-3424c.appspot.com',
   messagingSenderId: '312147418916',
