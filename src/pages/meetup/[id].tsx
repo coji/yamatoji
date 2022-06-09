@@ -133,8 +133,14 @@ const MeetupIndex = () => {
                         `https://github.com/${participant.githubUsername}`
                       }
                       isExternal
+                      display="inline"
+                      w="fit-content"
                     >
-                      <Stack direction="row" alignItems="center">
+                      <Stack
+                        direction="row"
+                        alignItems="center"
+                        display="inline-flex"
+                      >
                         <Avatar
                           mr="1"
                           src={participant.photoUrl}
@@ -177,11 +183,13 @@ const MeetupIndex = () => {
                         `https://github.com/${participant.githubUsername}`
                       }
                       isExternal
+                      display="inline"
+                      w="fit-content"
                     >
                       <Stack
                         direction="row"
                         key={participant.uid}
-                        display="flex"
+                        display="inline-flex"
                         alignItems="center"
                       >
                         <Avatar src={participant.photoUrl} size="sm"></Avatar>
