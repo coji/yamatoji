@@ -2,6 +2,7 @@ interface Participant {
   uid: string
   displayName: string
   photoUrl: string
+  updatedAt: string
 }
 
 export interface Meetup {

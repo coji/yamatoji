@@ -1,8 +1,10 @@
+import { useState } from 'react'
 import { Stack, Box, Text, Link, chakra, Button } from '@chakra-ui/react'
 import { useAuth } from '~/features/auth/hooks/useAuth'
 import { AuthSignInButton } from '~/features/auth/components/AuthSignInButton'
 import type { Meetup } from '../interfaces/meetup'
 import { PoweredByStripeBadge } from './PoweredByStripeBadge'
+import { useCreateSession } from '~/features/meetup/hooks/useCreateSession'
 
 export const PurchasePanel = ({ meetup }: { meetup: Meetup }) => {
   const { currentUser, isAuthChecking } = useAuth()
@@ -15,13 +17,25 @@ export const PurchasePanel = ({ meetup }: { meetup: Meetup }) => {
   const isFull = capacity <= 0
   const frameColor = isFull ? 'red.500' : 'blue.500'
 
+  const { createSession, isLoading } = useCreateSession()
+  const handlePurchase = async () => {
+    // セッション作成して stripe チェックアウトにリダイレクト
+    await createSession({
+      meetupId: meetup.id!,
+      price: 'price_1L7tF4EobFOU2z6XVnFgmaqb',
+      quantity: 1
+    })
+  }
+
   let isAlreadyPaid = false
   let isAlreadyEntry = false
   if (currentUser) {
     isAlreadyPaid = meetup.paidParticipants.some(
+      // 購入済み
       (participant) => participant.uid === currentUser.uid
     )
     isAlreadyEntry = meetup.entryParticipants.some(
+      // 参加希望済み
       (participant) => participant.uid === currentUser.uid
     )
   }
@@ -68,11 +82,15 @@ export const PurchasePanel = ({ meetup }: { meetup: Meetup }) => {
         return (
           <Stack>
             {!isAlreadyPaid && (
-              <form action="/api/checkout_sessions" method="POST">
-                <Button w="full" type="submit" role="link" colorScheme="blue">
-                  事前決済して参加確定
-                </Button>
-              </form>
+              <Button
+                onClick={() => handlePurchase()}
+                w="full"
+                role="link"
+                colorScheme="blue"
+                isLoading={isLoading}
+              >
+                事前決済して参加確定
+              </Button>
             )}
 
             {!isAlreadyEntry && (
@@ -136,10 +154,7 @@ export const PurchasePanel = ({ meetup }: { meetup: Meetup }) => {
             <small> 円</small>
           </Text>
           <Text fontSize="xs">
-            <small>
-              {' '}
-              + システム利用料 <b>{systemCharge} 円</b> (3.6%相当)
-            </small>
+            + システム利用料 <b>{systemCharge} 円</b> <small>(3.6%)</small>
           </Text>
           <PoweredByStripeBadge />
         </Box>
