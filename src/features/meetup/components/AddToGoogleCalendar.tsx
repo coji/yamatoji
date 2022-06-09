@@ -8,7 +8,10 @@ export const AddToGoogleCalendar = ({ meetup }: { meetup: Meetup }) => {
   const endAt = dayjs(meetup.endAt).format('YYYYMMDDTHHmm00')
   const dates = `${startAt}/${endAt}`
   const location = `${meetup.locationLabel}`
-  const link = `https://www.google.com/calendar/render?action=TEMPLATE&text=${meetup.title}&dates=${dates}&details=${meetup.description}&location=${location}`
+  const description = encodeURI(
+    `${meetup.description}\n\nYamatoji\n${window.location.href}`
+  )
+  const link = `https://www.google.com/calendar/render?action=TEMPLATE&text=${meetup.title}&dates=${dates}&details=${description}&location=${location}`
 
   return (
     <Link href={link} isExternal _hover={{ textDecoration: 'none' }}>
