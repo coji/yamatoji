@@ -149,8 +149,10 @@ const MeetupIndex = () => {
             </Grid>
           </Stack>
           <Stack>
+            {/* 購入パネル */}
             <PurchasePanel meetup={meetup} />
 
+            {/* 参加希望 */}
             <Box>
               <Box
                 fontSize="sm"
