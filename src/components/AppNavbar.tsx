@@ -75,7 +75,7 @@ export const AppNavbar = () => {
       ) : isAuthChecking ? (
         <CircularProgress isIndeterminate size="32px" />
       ) : (
-        <AuthSignInButton />
+        <AuthSignInButton size="sm" />
       )}
     </Flex>
   )

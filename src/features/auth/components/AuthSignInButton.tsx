@@ -4,12 +4,7 @@ import { useAuthAction } from '~/features/auth/hooks/useAuthAction'
 export const AuthSignInButton: React.FC<ButtonProps> = ({ ...props }) => {
   const { signInWithGitHub } = useAuthAction()
   return (
-    <Button
-      colorScheme="blue"
-      size="sm"
-      onClick={() => signInWithGitHub()}
-      {...props}
-    >
+    <Button colorScheme="blue" onClick={() => signInWithGitHub()} {...props}>
       <Icon mr="1">
         <path
           fill="currentColor"
