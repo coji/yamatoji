@@ -1,10 +1,4 @@
-interface Participant {
-  uid: string
-  displayName: string
-  photoUrl: string
-  githubUsername?: string
-  updatedAt: string
-}
+import type { User } from './user'
 
 export interface Meetup {
   id: string | null
@@ -17,6 +11,6 @@ export interface Meetup {
   description: string
   ticketPrice: number // チケット価格
   maxParticipants: number // 最大参加人数
-  paidParticipants: Participant[] // 支払い済み参加者数
-  entryParticipants: Participant[] // 参加表明/未払い参加者数
+  paidParticipants: User[] // 支払い済み参加者数
+  entryParticipants: User[] // 参加表明/未払い参加者数
 }

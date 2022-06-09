@@ -18,9 +18,10 @@ export default async function handler(
     if (!req.body.meetupId) {
       return res.status(500).send('meetupId is required')
     }
+    const meetupId = String(req.body.meetupId)
 
     // 売り切れチェック
-    const meetup = await getMeetup(String(req.body.meetupId))
+    const meetup = await getMeetup(meetupId)
     if (meetup.maxParticipants < meetup.paidParticipants.length + 1) {
       return res.status(500).send('sold out')
     }
@@ -35,13 +36,17 @@ export default async function handler(
     const session = await stripe.checkout.sessions.create({
       line_items: [
         {
-          price: 'price_1L7tF4EobFOU2z6XVnFgmaqb',
+          price: 'price_1L7tF4EobFOU2z6XVnFgmaqb', // 5000円 + 137円
           quantity: 1
         }
       ],
+      client_reference_id: JSON.stringify({
+        uid: verified.uid,
+        meetupId: meetup.id
+      }),
       mode: 'payment',
-      success_url: `${req.headers.origin}/meetup/1?success=true`,
-      cancel_url: `${req.headers.origin}/meetup/1?canceled=true`
+      success_url: `${req.headers.origin}/meetup/${meetupId}?success=true`,
+      cancel_url: `${req.headers.origin}/meetup/${meetupId}?canceled=true`
     })
 
     res.json(session.url) // stripe のチェックアウトURLを返却。ブラウザ側でリダイレクト (CORS対応)

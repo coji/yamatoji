@@ -13,7 +13,7 @@ import {
   getAdditionalUserInfo,
   AdditionalUserInfo
 } from 'firebase/auth'
-import { doc, setDoc, serverTimestamp } from 'firebase/firestore'
+import { doc, updateDoc, serverTimestamp } from 'firebase/firestore'
 import { auth, firestore } from '~/libs/firebase'
 
 // users コレクションに upsert
@@ -33,12 +33,12 @@ const upsertUser = async (
   }
 
   // additional user info がない場合は更新しない
-  if (params.githubUsername === undefined) {
+  if (additionalUserInfo === null) {
     delete params.githubUsername
   }
 
   const docRef = doc(firestore, `/users/${user.uid}`)
-  await setDoc(docRef, params)
+  await updateDoc(docRef, params)
 }
 
 export function useAuthUser<R = User | null>(

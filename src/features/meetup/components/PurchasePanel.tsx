@@ -1,13 +1,14 @@
-import { useState } from 'react'
-import { Stack, Box, Text, Link, chakra, Button } from '@chakra-ui/react'
+import { Stack, Box, Text, Button } from '@chakra-ui/react'
 import { useAuth } from '~/features/auth/hooks/useAuth'
 import { AuthSignInButton } from '~/features/auth/components/AuthSignInButton'
 import type { Meetup } from '../interfaces/meetup'
 import { PoweredByStripeBadge } from './PoweredByStripeBadge'
 import { useCreateSession } from '~/features/meetup/hooks/useCreateSession'
+import { useMeetupEntry } from '../hooks/useMeetupEntry'
 
 export const PurchasePanel = ({ meetup }: { meetup: Meetup }) => {
   const { currentUser, isAuthChecking } = useAuth()
+  const { addEntryMutation, removeEntryMutation } = useMeetupEntry()
 
   // システム利用料は Stirpe 手数料に合わせて決済金額全体の 3.6%。本体価格 x (1-3.6%) - 本体価格　が手数料率
   const systemCharge =
@@ -21,9 +22,7 @@ export const PurchasePanel = ({ meetup }: { meetup: Meetup }) => {
   const handlePurchase = async () => {
     // セッション作成して stripe チェックアウトにリダイレクト
     await createSession({
-      meetupId: meetup.id!,
-      price: 'price_1L7tF4EobFOU2z6XVnFgmaqb',
-      quantity: 1
+      meetupId: meetup.id!
     })
   }
 
@@ -58,13 +57,23 @@ export const PurchasePanel = ({ meetup }: { meetup: Meetup }) => {
       // 参加希望しておらず
       if (isAlreadyEntry) {
         return (
-          <Box color="gray.500" fontWeight="bold">
-            参加希望済みキャンセル待ち
-          </Box>
+          <Button
+            onClick={() => removeEntryMutation.mutate({ meetupId: meetup.id! })}
+            isLoading={removeEntryMutation.isLoading}
+            w="full"
+            colorScheme="gray"
+            variant="outline"
+            color="gray.500"
+            size="sm"
+          >
+            参加希望を取り消す
+          </Button>
         )
       } else {
         return (
           <Button
+            onClick={() => addEntryMutation.mutate({ meetupId: meetup.id! })}
+            isLoading={addEntryMutation.isLoading}
             w="full"
             colorScheme="gray"
             variant="outline"
@@ -95,6 +104,10 @@ export const PurchasePanel = ({ meetup }: { meetup: Meetup }) => {
 
             {!isAlreadyEntry && (
               <Button
+                onClick={() =>
+                  addEntryMutation.mutate({ meetupId: meetup.id! })
+                }
+                isLoading={addEntryMutation.isLoading}
                 w="full"
                 colorScheme="gray"
                 variant="outline"
@@ -102,6 +115,22 @@ export const PurchasePanel = ({ meetup }: { meetup: Meetup }) => {
                 size="sm"
               >
                 参加希望のみ
+              </Button>
+            )}
+
+            {isAlreadyEntry && (
+              <Button
+                onClick={() =>
+                  removeEntryMutation.mutate({ meetupId: meetup.id! })
+                }
+                isLoading={removeEntryMutation.isLoading}
+                w="full"
+                colorScheme="gray"
+                variant="outline"
+                color="gray.500"
+                size="sm"
+              >
+                参加希望を取り消す
               </Button>
             )}
           </Stack>

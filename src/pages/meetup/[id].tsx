@@ -21,10 +21,6 @@ import { GrLocation } from 'react-icons/gr'
 import { IoPeopleCircleOutline } from 'react-icons/io5'
 import { FaRegCommentDots } from 'react-icons/fa'
 import dayjs from '~/libs/dayjs'
-import { loadStripe } from '@stripe/stripe-js'
-const stripePromise = loadStripe(
-  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
-)
 import { AppReturnToTopButton } from '~/components/AppReturnToTopButton'
 import { MeetupImageBlock } from '~/features/meetup/components/MeetupImageBlock'
 import { PurchasePanel } from '~/features/meetup/components/PurchasePanel'
@@ -159,7 +155,7 @@ const MeetupIndex = () => {
             <PurchasePanel meetup={meetup} />
 
             {/* 参加希望 */}
-            <Box>
+            {meetup.entryParticipants.length > 0 && (
               <Box
                 fontSize="sm"
                 color="gray.500"
@@ -199,7 +195,7 @@ const MeetupIndex = () => {
                   ))}
                 </Stack>
               </Box>
-            </Box>
+            )}
           </Stack>
         </Stack>
       </Stack>
