@@ -1,11 +1,47 @@
 import { useQuery } from 'react-query'
 import type { Meetup } from '../interfaces/meetup'
-import meetups from '~/assets/meetups.json'
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  QueryDocumentSnapshot,
+  SnapshotOptions,
+  DocumentData
+} from 'firebase/firestore'
+import { firestore } from '~/libs/firebase'
 
-export const fetchMeetupList = async () => meetups
+const meetupConverter = {
+  toFirestore(meetup: Meetup): DocumentData {
+    return {
+      ...meetup
+    }
+  },
+  fromFirestore(
+    snapshot: QueryDocumentSnapshot,
+    options: SnapshotOptions
+  ): Meetup {
+    const data = snapshot.data(options)!
+    return {
+      id: snapshot.id,
+      ...data
+    } as Meetup
+  }
+}
 
-export const fetchMeetup = (id: string) =>
-  meetups.find((meetup) => meetup.id === id)
+export const fetchMeetupList = async () => {
+  const snapshot = await getDocs(
+    collection(firestore, 'meetups').withConverter(meetupConverter)
+  )
+  return snapshot.docs.map((doc) => doc.data())
+}
+
+export const fetchMeetup = async (id: string) => {
+  const snapshot = await getDoc(
+    doc(firestore, `meetups/${id}`).withConverter(meetupConverter)
+  )
+  return snapshot.data()
+}
 
 export const useMeetupList = () => {
   return useQuery(['meetups'], () => fetchMeetupList())

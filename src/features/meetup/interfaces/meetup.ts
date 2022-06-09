@@ -2,6 +2,7 @@ interface Participant {
   uid: string
   displayName: string
   photoUrl: string
+  githubUsername?: string
   updatedAt: string
 }
 
