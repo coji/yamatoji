@@ -11,7 +11,8 @@ interface MeetupCardProps {
 export const MeetupCard = ({ meetup }: MeetupCardProps) => {
   return (
     <Box
-      rounded="md"
+      roundedTop={{ sm: 'md' }}
+      roundedBottom={{ base: 'md' }}
       w="full"
       border="1px solid"
       borderColor="gray.200"
