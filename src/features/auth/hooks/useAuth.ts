@@ -13,7 +13,7 @@ import {
   getAdditionalUserInfo,
   AdditionalUserInfo
 } from 'firebase/auth'
-import { doc, updateDoc, serverTimestamp } from 'firebase/firestore'
+import { doc, setDoc, serverTimestamp } from 'firebase/firestore'
 import { auth, firestore } from '~/libs/firebase'
 
 // users コレクションに upsert
@@ -23,7 +23,7 @@ const upsertUser = async (
 ) => {
   const params = {
     uid: user.uid,
-    displayName: user.displayName,
+    displayName: user.displayName || 'github user',
     photoUrl: user.photoURL,
     email: user.email,
     emailVerified: user.emailVerified,
@@ -38,7 +38,7 @@ const upsertUser = async (
   }
 
   const docRef = doc(firestore, `/users/${user.uid}`)
-  await updateDoc(docRef, params)
+  await setDoc(docRef, params, { merge: true })
 }
 
 export function useAuthUser<R = User | null>(
