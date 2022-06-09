@@ -208,6 +208,13 @@ export default MeetupIndex
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const id = context.params?.id as string
+  const meetup = await fetchMeetup(id)
+  if (!meetup) {
+    return {
+      notFound: true
+    }
+  }
+
   const queryClient = new QueryClient()
 
   await queryClient.prefetchQuery(['meetup', id], () => fetchMeetup(id))
@@ -215,7 +222,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
   return {
     props: {
       dehydratedState: dehydrate(queryClient)
-    }
+    },
+    revalidate: 60
   }
 }
 
