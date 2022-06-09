@@ -115,7 +115,7 @@ const MeetupIndex = () => {
                 <Icon mt="1" as={IoPeopleCircleOutline} />
               </GridItem>
               <GridItem>
-                <Text>
+                <Text fontWeight="bold" color="gray.600">
                   参加確定 {meetup.paidParticipants.length}
                   <small>人</small>
                 </Text>
@@ -158,7 +158,7 @@ const MeetupIndex = () => {
                 fontSize="sm"
                 color="gray.500"
                 border="1px solid"
-                borderColor="gray.200"
+                borderColor="gray.300"
                 rounded="md"
                 py="1"
                 px="4"
