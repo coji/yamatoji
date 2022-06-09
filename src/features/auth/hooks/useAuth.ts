@@ -13,11 +13,32 @@ import {
   getAdditionalUserInfo,
   AdditionalUserInfo
 } from 'firebase/auth'
-import { auth } from '~/libs/firebase'
+import { doc, setDoc, serverTimestamp } from 'firebase/firestore'
+import { auth, firestore } from '~/libs/firebase'
 
-interface AuthUser {
-  user: User | null
+// users コレクションに upsert
+const upsertUser = async (
+  user: User,
   additionalUserInfo: AdditionalUserInfo | null
+) => {
+  const params = {
+    uid: user.uid,
+    displayName: user.displayName,
+    photoUrl: user.photoURL,
+    email: user.email,
+    emailVerified: user.emailVerified,
+    providers: user.providerData.map((provider) => provider.providerId),
+    updatedAt: serverTimestamp(),
+    githubUsername: additionalUserInfo?.username // github user name
+  }
+
+  // additional user info がない場合は更新しない
+  if (params.githubUsername === undefined) {
+    delete params.githubUsername
+  }
+
+  const docRef = doc(firestore, `/users/${user.uid}`)
+  await setDoc(docRef, params)
 }
 
 export function useAuthUser<R = User | null>(
@@ -25,7 +46,7 @@ export function useAuthUser<R = User | null>(
   auth: Auth,
   useQueryOptions?: Omit<UseQueryOptions<User | null, AuthError, R>, 'queryFn'>
 ): UseQueryResult<R, AuthError> {
-  const client = useQueryClient()
+  const queryClient = useQueryClient()
 
   return useQuery<User | null, AuthError, R>({
     ...useQueryOptions,
@@ -41,15 +62,17 @@ export function useAuthUser<R = User | null>(
             const credential = await getRedirectResult(auth)
             if (credential) {
               additionalUserInfo = getAdditionalUserInfo(credential)
-              // TODO: save additionalUserInfo to user
             }
+
+            // ユーザ情報を保存
+            await upsertUser(user, additionalUserInfo)
           }
 
           if (!resolved) {
             resolved = true
             resolve(user)
           } else {
-            client.setQueryData<User | null>(key, user)
+            queryClient.setQueryData<User | null>(key, user)
           }
         }, reject)
       })

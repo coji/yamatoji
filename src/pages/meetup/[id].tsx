@@ -75,6 +75,7 @@ const MeetupIndex = () => {
         <Stack direction={{ base: 'column', sm: 'row' }}>
           <Stack flex="1">
             <Grid gridTemplateColumns="2rem 1fr" gap="2">
+              {/* 開催日時 */}
               <GridItem textAlign="center">
                 <Icon mt="1" as={AiOutlineClockCircle} />
               </GridItem>
@@ -83,10 +84,10 @@ const MeetupIndex = () => {
                   {dayjs(meetup.startAt).format('YYYY年M月D日 ddd曜日 HH:mm')}{' '}
                   〜 {dayjs(meetup.endAt).format('HH:mm')}
                 </chakra.span>
-
                 <AddToGoogleCalendar meetup={meetup} />
               </GridItem>
 
+              {/* 場所 */}
               <GridItem textAlign="center">
                 <Icon mt="1" as={GrLocation} />
               </GridItem>
@@ -101,6 +102,7 @@ const MeetupIndex = () => {
                 </Link>
               </GridItem>
 
+              {/* 概要 */}
               <GridItem textAlign="center">
                 <Icon mt="1" as={FaRegCommentDots} />
               </GridItem>
@@ -108,6 +110,7 @@ const MeetupIndex = () => {
                 <Text>{meetup.description}</Text>
               </GridItem>
 
+              {/* 参加確定者数 */}
               <GridItem textAlign="center">
                 <Icon mt="1" as={IoPeopleCircleOutline} />
               </GridItem>
@@ -118,18 +121,28 @@ const MeetupIndex = () => {
                 </Text>
               </GridItem>
 
+              {/* 参加確定リスト */}
               <GridItem></GridItem>
               <GridItem>
                 <Stack>
                   {meetup.paidParticipants.map((participant) => (
-                    <Stack direction="row" key={participant.uid}>
-                      <Avatar
-                        mr="1"
-                        src={participant.photoUrl}
-                        size="sm"
-                      ></Avatar>
-                      <Text display="inline">{participant.displayName}</Text>
-                    </Stack>
+                    <Link
+                      key={participant.uid}
+                      href={
+                        participant.githubUsername &&
+                        `https://github.com/${participant.githubUsername}`
+                      }
+                      isExternal
+                    >
+                      <Stack direction="row" alignItems="center">
+                        <Avatar
+                          mr="1"
+                          src={participant.photoUrl}
+                          size="sm"
+                        ></Avatar>
+                        <Text display="inline">{participant.displayName}</Text>
+                      </Stack>
+                    </Link>
                   ))}
                 </Stack>
               </GridItem>
@@ -155,15 +168,24 @@ const MeetupIndex = () => {
                 </Box>
                 <Stack>
                   {meetup.entryParticipants.map((participant) => (
-                    <Stack
-                      direction="row"
+                    <Link
                       key={participant.uid}
-                      display="flex"
-                      alignItems="center"
+                      href={
+                        participant.githubUsername &&
+                        `https://github.com/${participant.githubUsername}`
+                      }
+                      isExternal
                     >
-                      <Avatar src={participant.photoUrl} size="sm"></Avatar>
-                      <Text>{participant.displayName}</Text>
-                    </Stack>
+                      <Stack
+                        direction="row"
+                        key={participant.uid}
+                        display="flex"
+                        alignItems="center"
+                      >
+                        <Avatar src={participant.photoUrl} size="sm"></Avatar>
+                        <Text>{participant.displayName}</Text>
+                      </Stack>
+                    </Link>
                   ))}
                 </Stack>
               </Box>
