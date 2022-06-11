@@ -4,7 +4,7 @@ import type { Meetup } from '../interfaces/meetup'
 
 export const MeetupTitleBlock = ({ meetup }: { meetup: Meetup }) => {
   const startAt = dayjs(meetup.startAt)
-  const startTime = startAt.format('ddd曜 H:mm')
+  const startTime = startAt.tz().format('ddd曜 H:mm')
 
   return (
     <Box>

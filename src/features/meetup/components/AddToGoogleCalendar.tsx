@@ -8,8 +8,8 @@ export const AddToGoogleCalendar = ({ meetup }: { meetup: Meetup }) => {
   const [link, setLink] = useState<string>('')
 
   useEffect(() => {
-    const startAt = dayjs(meetup.startAt).format('YYYYMMDDTHHmm00')
-    const endAt = dayjs(meetup.endAt).format('YYYYMMDDTHHmm00')
+    const startAt = dayjs(meetup.startAt).tz().format('YYYYMMDDTHHmm00')
+    const endAt = dayjs(meetup.endAt).tz().format('YYYYMMDDTHHmm00')
     const dates = `${startAt}/${endAt}`
     const location = `${meetup.locationLabel}`
     const description = encodeURI(

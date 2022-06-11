@@ -77,8 +77,10 @@ const MeetupIndex = () => {
               </GridItem>
               <GridItem>
                 <chakra.span mr="2">
-                  {dayjs(meetup.startAt).format('YYYY年M月D日 ddd曜日 HH:mm')}{' '}
-                  〜 {dayjs(meetup.endAt).format('HH:mm')}
+                  {dayjs(meetup.startAt)
+                    .tz()
+                    .format('YYYY年M月D日 ddd曜日 HH:mm')}{' '}
+                  〜 {dayjs(meetup.endAt).tz().format('HH:mm')}
                 </chakra.span>
                 <AddToGoogleCalendar meetup={meetup} />
               </GridItem>
@@ -209,27 +211,17 @@ export default MeetupIndex
 export const getStaticProps: GetStaticProps = async (context) => {
   const id = context.params?.id as string
   const meetup = await fetchMeetup(id)
-  if (!meetup) {
-    return {
-      notFound: true
-    }
-  }
+  if (!meetup) return { notFound: true }
 
   const queryClient = new QueryClient()
-
   await queryClient.prefetchQuery(['meetup', id], () => fetchMeetup(id))
 
   return {
-    props: {
-      dehydratedState: dehydrate(queryClient)
-    },
+    props: { dehydratedState: dehydrate(queryClient) },
     revalidate: 60
   }
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  return {
-    paths: [],
-    fallback: 'blocking'
-  }
+  return { paths: [], fallback: 'blocking' }
 }
