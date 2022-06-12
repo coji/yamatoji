@@ -1,4 +1,22 @@
-import { Stack, Box, Text, Button } from '@chakra-ui/react'
+import {
+  Stack,
+  Box,
+  Text,
+  Heading,
+  Button,
+  Spacer,
+  Alert,
+  AlertDescription,
+  Modal,
+  ModalContent,
+  ModalBody,
+  ModalOverlay,
+  ModalCloseButton,
+  ModalHeader,
+  ModalFooter,
+  useDisclosure,
+  Link
+} from '@chakra-ui/react'
 import { useAuth } from '~/features/auth/hooks/useAuth'
 import { AuthSignInButton } from '~/features/auth/components/AuthSignInButton'
 import type { Meetup } from '../interfaces/meetup'
@@ -18,13 +36,22 @@ export const PurchasePanel = ({ meetup }: { meetup: Meetup }) => {
   const isFull = capacity <= 0
   const frameColor = isFull ? 'red.500' : 'blue.500'
 
-  const { createSession, isLoading } = useCreateSession()
+  const { createSession } = useCreateSession()
   const handlePurchase = async () => {
     // セッション作成して stripe チェックアウトにリダイレクト
-    await createSession({
-      meetupId: meetup.id!
-    })
+    createSession.mutate(
+      {
+        meetupId: meetup.id!
+      },
+      {
+        onError: (e: any) => {
+          console.error(e)
+        }
+      }
+    )
   }
+
+  const purchaseDialog = useDisclosure()
 
   let isAlreadyPaid = false
   let isAlreadyEntry = false
@@ -53,10 +80,10 @@ export const PurchasePanel = ({ meetup }: { meetup: Meetup }) => {
   if (!isAlreadyPaid && !isFull) {
     payButton = (
       <Button
-        onClick={() => handlePurchase()}
+        onClick={() => purchaseDialog.onOpen()}
         w="full"
         colorScheme="blue"
-        isLoading={isLoading}
+        isLoading={createSession.isLoading}
       >
         事前決済で参加確定する
       </Button>
@@ -164,6 +191,64 @@ export const PurchasePanel = ({ meetup }: { meetup: Meetup }) => {
 
         {actionButtons}
       </Stack>
+
+      {/* 決済ダイアログ */}
+      <Modal isOpen={purchaseDialog.isOpen} onClose={purchaseDialog.onClose}>
+        <ModalOverlay></ModalOverlay>
+        <ModalContent>
+          <ModalHeader>事前決済で参加確定する</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Stack>
+              <Text>
+                事前決済手続きを開始します。「決済開始」ボタンをクリックしてください。
+              </Text>
+
+              <Heading color="gray.500" size="xs">
+                ご注意: 決済完了後のキャンセルについて
+              </Heading>
+              <Text color="gray.500" fontSize="xs">
+                事前決済完了後にキャンセルをされたい場合は、ページ下部の「お問い合わせ」から、運営者にお問い合わせください。
+                <br />
+                なお
+                <Link
+                  isExternal
+                  href="https://stripe.com/docs/refunds"
+                  color="blue.500"
+                >
+                  キャンセルに伴う返金でお戻しできるのは参加費のみとなり、
+                  システム利用料(3.6%) の返金はできません{' '}
+                </Link>
+                。あらかじめご了承ください。
+              </Text>
+            </Stack>
+            {createSession.isError && (
+              <Alert>
+                <AlertDescription>
+                  {JSON.stringify(createSession.isError)}
+                </AlertDescription>
+              </Alert>
+            )}
+          </ModalBody>
+          <ModalFooter>
+            <Button
+              onClick={purchaseDialog.onClose}
+              colorScheme="gray"
+              variant="ghost"
+            >
+              キャンセル
+            </Button>
+            <Spacer />
+            <Button
+              onClick={() => handlePurchase()}
+              isLoading={createSession.isLoading}
+              colorScheme="blue"
+            >
+              決済開始
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </Stack>
   )
 }

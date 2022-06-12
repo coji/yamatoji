@@ -64,9 +64,10 @@ export default async function handler(
         uid: verified.uid,
         meetupId: meetup.id
       }),
+      customer_email: verified.email,
       mode: 'payment',
-      success_url: `${req.headers.origin}/meetup/${meetupId}?success=true`,
-      cancel_url: `${req.headers.origin}/meetup/${meetupId}?canceled=true`
+      success_url: `${req.headers.origin}/meetup/${meetupId}?success=true&?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${req.headers.origin}/meetup/${meetupId}`
     })
 
     res.json(session.url) // stripe のチェックアウトURLを返却。ブラウザ側でリダイレクト (CORS対応)

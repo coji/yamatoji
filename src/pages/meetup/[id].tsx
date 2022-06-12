@@ -25,25 +25,12 @@ import { AppReturnToTopButton } from '~/components/AppReturnToTopButton'
 import { MeetupImageBlock } from '~/features/meetup/components/MeetupImageBlock'
 import { PurchasePanel } from '~/features/meetup/components/PurchasePanel'
 import { AddToGoogleCalendar } from '~/features/meetup/components/AddToGoogleCalendar'
+import { PurchaseResult } from '~/features/meetup/components/PurchaseResult'
 import { useMeetup, fetchMeetup } from '~/features/meetup/hooks/useMeetups'
 
 const MeetupIndex = () => {
   const router = useRouter()
   const { data: meetup, isLoading } = useMeetup(String(router.query.id))
-
-  useEffect(() => {
-    // Check to see if this is a redirect back from Checkout
-    const query = new URLSearchParams(window.location.search)
-    if (query.get('success')) {
-      console.log('Order placed! You will receive an email confirmation.')
-    }
-
-    if (query.get('canceled')) {
-      console.log(
-        'Order canceled -- continue to shop around and checkout when you’re ready.'
-      )
-    }
-  }, [])
 
   if (!meetup) {
     return <Box>Loading...</Box>
@@ -61,8 +48,11 @@ const MeetupIndex = () => {
         >
           <Heading flex="1">{meetup.title}</Heading>
           <Box fontSize="xs">
-            参加確定 {meetup.paidParticipants.length}人 / 興味あり{' '}
-            {meetup.entryParticipants.length}人 / 最大{meetup.maxParticipants}人
+            参加確定{meetup.paidParticipants.length}
+            <small>人</small> / 興味あり
+            {meetup.entryParticipants.length}
+            <small>人</small> / 最大{meetup.maxParticipants}
+            <small>人</small>
           </Box>
         </Stack>
 
@@ -201,6 +191,8 @@ const MeetupIndex = () => {
           </Stack>
         </Stack>
       </Stack>
+
+      <PurchaseResult />
 
       <AppReturnToTopButton />
     </Container>
