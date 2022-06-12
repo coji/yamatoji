@@ -3,11 +3,10 @@ import { Link, chakra } from '@chakra-ui/react'
 export const PoweredByStripeBadge = () => (
   <Link isExternal href="https://stripe.com/" color="#635bff">
     <chakra.svg
+      display="inline"
       mx="auto"
       width="75px"
       height="17px"
-      id="Layer_1"
-      data-name="Layer 1"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 150 34"
       fill="currentColor"
