@@ -1,32 +1,16 @@
 [
   {
-    "id": "1",
-    "title": "大和路会",
-    "startAt": "2022-06-23 20:00",
-    "endAt": "2022-06-23 23:00",
-    "imageUrl": "https://merino-akihabara.com/wp-content/uploads/2021/10/66c19942ab4ba346fdb64ccc04cde373.jpg",
-    "locationLabel": "新宿 めり乃",
-    "locationUrl": "https://goo.gl/maps/AQYGi2eKu25H7WsPA",
-    "description": "久しぶりに集まって大和路でやってたような、しゃぶしゃぶ飲み会をやりましょう",
+    "id": "test",
+    "title": "テストミートアップ",
+    "startAt": "2022-06-23T11:00:00Z",
+    "endAt": "2022-06-23T14:00:00Z",
+    "imageUrl": "https://images.unsplash.com/photo-1559602580-78f1ba809b92?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=741&q=80",
+    "locationLabel": "some where",
+    "locationUrl": "https://www.google.com/map1s/search/somewhere/",
+    "description": "Let's meetup on some where!",
     "ticketPrice": 5000,
-    "maxParticipants": 30,
-    "paidParticipants": [
-      {
-        "uid": "UoskC6u5pPN4Hx8Fk66i51uCZbo1",
-        "displayName": "Kan Fushihara",
-        "photoUrl": "https://avatars.githubusercontent.com/u/41794?v=4",
-        "githubUsername": "kan",
-        "updatedAt": "2021-06-07T15:00:00.000Z"
-      }
-    ],
-    "entryParticipants": [
-      {
-        "uid": "7Is8vCyrVMfHLhMdJpMmy6rwywp1",
-        "displayName": "MIZOGUCHI Coji",
-        "photoUrl": "https://avatars.githubusercontent.com/u/9904?v=4",
-        "githubUsername": "coji",
-        "updatedAt": "2021-06-07T15:00:00.000Z"
-      }
-    ]
+    "maxParticipants": 5,
+    "paidParticipants": [],
+    "entryParticipants": []
   }
 ]

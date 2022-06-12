@@ -1,5 +1,6 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
 import type { NextApiRequest, NextApiResponse } from 'next'
+import dayjs from '~/libs/dayjs'
 import { getIdTokenFromReq } from '~/libs/api-side/helper'
 import { getMeetup } from '~/libs/api-side/meetup'
 
@@ -36,10 +37,26 @@ export default async function handler(
     const session = await stripe.checkout.sessions.create({
       line_items: [
         {
-          price:
-            process.env.NODE_ENV === 'development'
-              ? meetup.priceIdDev
-              : meetup.priceId,
+          price_data: {
+            currency: 'jpy',
+            product_data: {
+              name: `${meetup.title} (${dayjs(meetup.startAt)
+                .tz()
+                .format('YYYY-MM-DD')})`
+            },
+            unit_amount: meetup.ticketPrice
+          },
+          quantity: 1
+        },
+        {
+          price_data: {
+            currency: 'jpy',
+            product_data: {
+              name: 'yamatoji システム利用料 3.6%'
+            },
+            unit_amount:
+              Math.round(meetup.ticketPrice / (1 - 0.036)) - meetup.ticketPrice
+          },
           quantity: 1
         }
       ],
@@ -54,6 +71,7 @@ export default async function handler(
 
     res.json(session.url) // stripe のチェックアウトURLを返却。ブラウザ側でリダイレクト (CORS対応)
   } catch (err: any) {
+    console.log(err)
     res.status(err.statusCode || 500).json(err.message)
   }
 }
