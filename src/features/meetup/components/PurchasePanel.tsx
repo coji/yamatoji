@@ -39,112 +39,86 @@ export const PurchasePanel = ({ meetup }: { meetup: Meetup }) => {
     )
   }
 
+  // 決済ボタン
+  let payButton: React.ReactElement | null = null
+  // 決済済み
+  if (isAlreadyPaid) {
+    payButton = (
+      <Button w="full" colorScheme="blue" isDisabled>
+        参加確定
+      </Button>
+    )
+  }
+  // 未決済 / 満員
+  if (!isAlreadyPaid && !isFull) {
+    payButton = (
+      <Button
+        onClick={() => handlePurchase()}
+        w="full"
+        colorScheme="blue"
+        isLoading={isLoading}
+      >
+        事前決済で参加確定する
+      </Button>
+    )
+  }
+
+  // 参加ボタン
+  let entryButton: React.ReactElement | null = null
+  // 未参加/未エントリー
+  if (!isAlreadyPaid && !isAlreadyEntry) {
+    entryButton = (
+      <Button
+        onClick={() => addEntryMutation.mutate({ meetupId: meetup.id! })}
+        isLoading={addEntryMutation.isLoading}
+        w="full"
+        colorScheme="gray"
+        variant="outline"
+        color="gray.500"
+        size="sm"
+      >
+        興味あり
+      </Button>
+    )
+  }
+  // 参加済み
+  if (isAlreadyEntry) {
+    entryButton = (
+      <Button
+        onClick={() => removeEntryMutation.mutate({ meetupId: meetup.id! })}
+        isLoading={removeEntryMutation.isLoading}
+        w="full"
+        colorScheme="gray"
+        variant="outline"
+        color="gray.500"
+        size="sm"
+      >
+        興味ありを取り消す
+      </Button>
+    )
+  }
+
   const actionButtonSelector = () => {
     if (isAuthChecking) {
       // 認証処理中
       return <Box>Loading...</Box>
     }
 
-    if (isAlreadyPaid) {
+    if (currentUser) {
       return (
-        <Box color="gray.500" fontWeight="bold">
-          参加確定
+        <Stack>
+          {payButton}
+          {entryButton}
+        </Stack>
+      )
+    } else {
+      return (
+        <Box>
+          <AuthSignInButton w="full" />
+          <Text fontSize="xs">サインインして参加</Text>
         </Box>
       )
     }
-
-    if (isFull) {
-      // 参加希望しておらず
-      if (isAlreadyEntry) {
-        return (
-          <Button
-            onClick={() => removeEntryMutation.mutate({ meetupId: meetup.id! })}
-            isLoading={removeEntryMutation.isLoading}
-            w="full"
-            colorScheme="gray"
-            variant="outline"
-            color="gray.500"
-            size="sm"
-          >
-            参加希望を取り消す
-          </Button>
-        )
-      } else {
-        return (
-          <Button
-            onClick={() => addEntryMutation.mutate({ meetupId: meetup.id! })}
-            isLoading={addEntryMutation.isLoading}
-            w="full"
-            colorScheme="gray"
-            variant="outline"
-            color="gray.500"
-            size="sm"
-          >
-            参加希望のみ
-          </Button>
-        )
-      }
-    } else {
-      // 募集中
-      // ログイン済み/満席/未参加
-      if (currentUser) {
-        return (
-          <Stack>
-            {!isAlreadyPaid && (
-              <Button
-                onClick={() => handlePurchase()}
-                w="full"
-                role="link"
-                colorScheme="blue"
-                isLoading={isLoading}
-              >
-                事前決済して参加確定
-              </Button>
-            )}
-
-            {!isAlreadyEntry && (
-              <Button
-                onClick={() =>
-                  addEntryMutation.mutate({ meetupId: meetup.id! })
-                }
-                isLoading={addEntryMutation.isLoading}
-                w="full"
-                colorScheme="gray"
-                variant="outline"
-                color="gray.500"
-                size="sm"
-              >
-                参加希望のみ
-              </Button>
-            )}
-
-            {isAlreadyEntry && (
-              <Button
-                onClick={() =>
-                  removeEntryMutation.mutate({ meetupId: meetup.id! })
-                }
-                isLoading={removeEntryMutation.isLoading}
-                w="full"
-                colorScheme="gray"
-                variant="outline"
-                color="gray.500"
-                size="sm"
-              >
-                参加希望を取り消す
-              </Button>
-            )}
-          </Stack>
-        )
-      } else {
-        return (
-          <Box>
-            <AuthSignInButton w="full" />
-            <Text fontSize="xs">サインインして参加を希望</Text>
-          </Box>
-        )
-      }
-    }
-    return <Box>???</Box>
   }
   const actionButtons = actionButtonSelector()
 

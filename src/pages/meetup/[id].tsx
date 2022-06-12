@@ -156,7 +156,7 @@ const MeetupIndex = () => {
             {/* 購入パネル */}
             <PurchasePanel meetup={meetup} />
 
-            {/* 参加希望 */}
+            {/* 興味あり */}
             {meetup.entryParticipants.length > 0 && (
               <Box
                 fontSize="sm"
@@ -169,7 +169,7 @@ const MeetupIndex = () => {
                 mb="2"
               >
                 <Box fontWeight="bold" pb="2">
-                  参加希望 {meetup.entryParticipants.length}
+                  興味あり {meetup.entryParticipants.length}
                   <small>人</small>
                 </Box>
                 <Stack>
