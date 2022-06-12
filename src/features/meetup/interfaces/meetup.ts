@@ -13,6 +13,4 @@ export interface Meetup {
   maxParticipants: number // 最大参加人数
   paidParticipants: User[] // 支払い済み参加者数
   entryParticipants: User[] // 参加表明/未払い参加者数
-  priceId: string
-  priceIdDev: string
 }
