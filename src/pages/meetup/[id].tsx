@@ -61,7 +61,7 @@ const MeetupIndex = () => {
         >
           <Heading flex="1">{meetup.title}</Heading>
           <Box fontSize="xs">
-            参加確定 {meetup.paidParticipants.length}人 / 参加希望{' '}
+            参加確定 {meetup.paidParticipants.length}人 / 興味あり{' '}
             {meetup.entryParticipants.length}人 / 最大{meetup.maxParticipants}人
           </Box>
         </Stack>
