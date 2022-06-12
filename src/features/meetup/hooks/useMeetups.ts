@@ -1,4 +1,5 @@
-import { useQuery } from 'react-query'
+import { useEffect, useRef } from 'react'
+import { useQuery, useQueryClient } from 'react-query'
 import type { Meetup } from '../interfaces/meetup'
 import {
   collection,
@@ -7,6 +8,7 @@ import {
   getDocs,
   QueryDocumentSnapshot,
   SnapshotOptions,
+  onSnapshot,
   DocumentData
 } from 'firebase/firestore'
 import { firestore } from '~/libs/firebase'
@@ -49,4 +51,24 @@ export const useMeetupList = () => {
 
 export const useMeetup = (id: string) => {
   return useQuery(['meetup', id], () => fetchMeetup(id))
+}
+
+export const useMeetupUpdator = (id: string) => {
+  const unsubscribe = useRef<ReturnType<typeof onSnapshot>>()
+  const queryClient = useQueryClient()
+
+  useEffect(() => {
+    if (!id) {
+      return
+    }
+
+    unsubscribe.current = onSnapshot(doc(firestore, `meetups/${id}`), () => {
+      queryClient.invalidateQueries(['meetup', id])
+    })
+
+    return () => {
+      if (unsubscribe.current) unsubscribe.current()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 }

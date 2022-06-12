@@ -26,11 +26,16 @@ import { MeetupImageBlock } from '~/features/meetup/components/MeetupImageBlock'
 import { PurchasePanel } from '~/features/meetup/components/PurchasePanel'
 import { AddToGoogleCalendar } from '~/features/meetup/components/AddToGoogleCalendar'
 import { PurchaseResult } from '~/features/meetup/components/PurchaseResult'
-import { useMeetup, fetchMeetup } from '~/features/meetup/hooks/useMeetups'
+import {
+  useMeetup,
+  useMeetupUpdator,
+  fetchMeetup
+} from '~/features/meetup/hooks/useMeetups'
 
 const MeetupIndex = () => {
   const router = useRouter()
-  const { data: meetup, isLoading } = useMeetup(String(router.query.id))
+  const { data: meetup } = useMeetup(String(router.query.id))
+  useMeetupUpdator(String(router.query.id))
 
   if (!meetup) {
     return <Box>Loading...</Box>
