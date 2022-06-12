@@ -66,7 +66,7 @@ export default async function handler(
       }),
       customer_email: verified.email,
       mode: 'payment',
-      success_url: `${req.headers.origin}/meetup/${meetupId}?success=true&?session_id={CHECKOUT_SESSION_ID}`,
+      success_url: `${req.headers.origin}/meetup/${meetupId}?success=true&session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${req.headers.origin}/meetup/${meetupId}`
     })
 
