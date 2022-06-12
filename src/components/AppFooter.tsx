@@ -6,16 +6,22 @@ export const AppFooter = () => (
     <Container as={Stack} maxW={'6xl'} py={4} textAlign="center">
       <Stack>
         <Box textAlign="center">
-          <Flex direction="row" gap={4} flexWrap="wrap" justifyContent="center">
-            <Link href="https://github.com/coji/yamatoji" isExternal>
+          <Flex direction="row" gap={2} flexWrap="wrap" justifyContent="center">
+            <Link href="https://github.com/coji/yamatoji" isExternal w="28">
               GitHub
             </Link>
 
-            <NextLink href="/privacy" passHref>
-              <Link>プライバシー</Link>
-            </NextLink>
+            <Box w="28">
+              <NextLink href="/privacy" passHref>
+                <Link>プライバシー</Link>
+              </NextLink>
+            </Box>
 
-            <Link href="https://www.messenger.com/t/679524290/" isExternal>
+            <Link
+              href="https://www.messenger.com/t/679524290/"
+              isExternal
+              w="28"
+            >
               お問い合わせ{' '}
               <Icon color="facebook.500">
                 <path
