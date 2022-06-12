@@ -36,7 +36,13 @@ export const AppNavbar = () => {
     >
       <NextLink href="/" passHref>
         <Link _hover={{ textDecoration: 'none' }}>
-          <Heading color="gray.600">Yamatoji</Heading>
+          <Heading
+            fontWeight="extrabold"
+            bgGradient="linear(to-l, #7928CA, #FF0080)"
+            bgClip="text"
+          >
+            Yamatoji
+          </Heading>
         </Link>
       </NextLink>
 
