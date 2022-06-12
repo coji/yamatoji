@@ -14,7 +14,7 @@ const Privacy: NextPage<Props> = ({ content }) => {
   return (
     <>
       <Head>
-        <title>プライバシーポリシー - Yamatoji</title>
+        <title>特定商取引法に基づく表記 - Yamatoji</title>
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1, viewport-fit=cover"
@@ -24,7 +24,7 @@ const Privacy: NextPage<Props> = ({ content }) => {
 
       <Container maxW="container.lg">
         <Heading textAlign="center" my="4rem">
-          Yamatoji プライバシーポリシー
+          特定商取引法に基づく表記
         </Heading>
 
         <Box
@@ -40,7 +40,7 @@ const Privacy: NextPage<Props> = ({ content }) => {
 export default Privacy
 
 export const getStaticProps: GetStaticProps = async () => {
-  const content = await fs.readFile('src/public/privacy.md')
+  const content = await fs.readFile('src/public/law.md')
   const md = new MarkdownIt()
   return {
     props: {

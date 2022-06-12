@@ -1,5 +1,5 @@
 import NextLink from 'next/link'
-import { Box, Container, Stack, Flex, Link, Icon } from '@chakra-ui/react'
+import { Box, Text, Container, Stack, Flex, Link, Icon } from '@chakra-ui/react'
 
 export const AppFooter = () => (
   <Box as="footer" bg="gray.50" color="gray.600" py="4" fontSize="sm">
@@ -10,6 +10,12 @@ export const AppFooter = () => (
             <Link href="https://github.com/coji/yamatoji" isExternal w="28">
               GitHub
             </Link>
+
+            <Box w="28">
+              <NextLink href="/law" passHref>
+                <Link>特定商取引法</Link>
+              </NextLink>
+            </Box>
 
             <Box w="28">
               <NextLink href="/privacy" passHref>
@@ -34,8 +40,9 @@ export const AppFooter = () => (
         </Box>
 
         <Box>
-          <Link fontWeight="bold" href="https://github.com/coji" isExternal>
-            運営 coji
+          <Text fontWeight="bold">開発・運営</Text>
+          <Link href="https://github.com/coji" isExternal>
+            <Text>coji</Text>
           </Link>
         </Box>
       </Stack>
