@@ -41,6 +41,9 @@ const MeetupIndex = () => {
     return <Box>Loading...</Box>
   }
 
+  const remainsParticipants =
+    meetup.maxParticipants - meetup.paidParticipants.length
+
   return (
     <Container maxW="container.lg" p="0">
       <MeetupImageBlock meetup={meetup} />
@@ -108,10 +111,18 @@ const MeetupIndex = () => {
                 <Icon mt="1" as={IoPeopleCircleOutline} />
               </GridItem>
               <GridItem>
-                <Text fontWeight="bold" color="gray.600">
-                  参加確定 {meetup.paidParticipants.length}
-                  <small>人</small>
-                </Text>
+                <Stack direction="row">
+                  <Text fontWeight="bold" color="gray.600">
+                    参加確定 {meetup.paidParticipants.length}
+                    <small>人</small> / <small>最大</small>{' '}
+                    {meetup.maxParticipants}
+                    <small>人</small>
+                  </Text>
+                  <Text fontWeight="bold" color="red.600">
+                    <small>あと</small> {remainsParticipants}
+                    <small>人</small>
+                  </Text>
+                </Stack>
               </GridItem>
 
               {/* 参加確定リスト */}
