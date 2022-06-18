@@ -48,7 +48,7 @@ export default Home
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const queryClient = new QueryClient()
-  await queryClient.prefetchQuery(['meetup'], () => fetchMeetupList())
+  await queryClient.prefetchQuery(['meetups'], () => fetchMeetupList())
 
   return {
     props: {
