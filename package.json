@@ -31,7 +31,8 @@
     "react-dom": "18.2.0",
     "react-icons": "^4.4.0",
     "react-query": "^3.39.1",
-    "stripe": "^9.9.0"
+    "stripe": "^9.9.0",
+    "vitest": "^0.15.2"
   },
   "devDependencies": {
     "@babel/core": "^7.18.5",

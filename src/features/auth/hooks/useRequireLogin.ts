@@ -1,4 +1,4 @@
-import { useAuthUser } from '@react-query-firebase/auth'
+import { useAuthUser } from './useAuth'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { auth } from '~/libs/firebase'
